@@ -497,6 +497,7 @@
                 <div class="input-wrapper">
                   <label for="checkout-form-name">First name</label>
                   <input
+                    autocomplete="name"
                     type="text"
                     name="checkout-form-name"
                     id="checkout-form-name"
@@ -505,6 +506,7 @@
                 <div class="input-wrapper">
                   <label for="checkout-form-surname">Last name</label>
                   <input
+                    autocomplete="family-name"
                     type="text"
                     name="checkout-form-surname"
                     id="checkout-form-surname"
@@ -513,23 +515,40 @@
                 <div class="input-wrapper fullwidth">
                   <label for="checkout-form-email">Email</label>
                   <input
-                    type="text"
+                    autocomplete="email"
+                    type="email"
                     name="checkout-form-email"
                     id="checkout-form-email"
                   />
                 </div>
-                <div class="input-wrapper">
+                <div class="input-wrapper caret">
                   <label for="checkout-form-country">Country</label>
-                  <input
-                    type="text"
+                  <select
+                    autocomplete="country"
+                    name="checkout-form-country"
+                    id="checkout-form-country"
+                  >
+                    <option value="Poland">Poland</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Czech-Republic">Czech Republic</option>
+                  </select>
+                  <!-- <span>></span> -->
+                  <!-- <input
+                    list="countries"
                     name="checkout-form-country"
                     id="checkout-form-country"
                   />
+                  <datalist id="countries">
+                    <option value="Poland">Poland</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Czech-Republic">Czech Republic</option>
+                  </datalist> -->
                 </div>
                 <div class="input-wrapper">
                   <label for="checkout-form-postal_code">Postal Code</label>
                   <input
-                    type="text"
+                    autocomplete="postal-code"
+                    type="tel"
                     name="checkout-form-postal_code"
                     id="checkout-form-postal_code"
                   />
@@ -537,7 +556,8 @@
                 <div class="input-wrapper fullwidth">
                   <label for="checkout-form-phone">Phone Number</label>
                   <input
-                    type="text"
+                    autocomplete="tel"
+                    type="tel"
                     name="checkout-form-phone"
                     id="checkout-form-phone"
                   />
@@ -550,15 +570,18 @@
                     >Credit Card Number</label
                   >
                   <input
-                    type="text"
+                    type="tel"
                     name="checkout-form-credit_card"
                     id="checkout-form-credit_card"
                   />
                 </div>
-                <div class="input-wrapper">
+                <div
+                  class="input-wrapper hint"
+                  data-hint="This is secure code delivered by verified provider"
+                >
                   <label for="checkout-form-security_code">Security Code</label>
                   <input
-                    type="text"
+                    type="password"
                     name="checkout-form-security_code"
                     id="checkout-form-security_code"
                   />
@@ -566,7 +589,9 @@
                 <div class="input-wrapper">
                   <label for="checkout-form-expiration">Expiration Date</label>
                   <input
-                    type="text"
+                    placeholder="mm/yy"
+                    pattern="\d{1,2}/\d{1,2}"
+                    type="date"
                     name="checkout-form-expiration"
                     id="checkout-form-expiration"
                   />

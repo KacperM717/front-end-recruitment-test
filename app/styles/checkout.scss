@@ -9,7 +9,7 @@
   --accept-dark: rgb(86, 172, 0);
 }
 
-$medium: 800px;
+$medium: 768px;
 
 @mixin min-width($size) {
   @media (min-width: $size) {
@@ -92,11 +92,6 @@ $medium: 800px;
         width: auto;
         flex-grow: 1;
       }
-
-      &.fullwidth {
-        width: 100%;
-      }
-
       width: 100%;
       background-color: var(--foreground);
       border-radius: 3px;
@@ -110,17 +105,24 @@ $medium: 800px;
       }
 
       label {
+        cursor: pointer;
         font-size: 0.8rem;
         display: block;
       }
 
-      input {
+      input,
+      select {
         width: 100%;
-        display: inline-block;
-        font-size: 1.4rem;
         border: none;
         outline: none;
+        appearance: none;
+        display: inline-block;
+        font-size: 1.4rem;
         color: var(--decal-dark);
+      }
+
+      &.fullwidth {
+        width: 100%;
       }
     }
 
@@ -191,4 +193,60 @@ $medium: 800px;
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.caret {
+  position: relative;
+
+  &:focus-within {
+    &::after {
+      transform: rotate(-180deg);
+      color: var(--decal-dark);
+    }
+  }
+
+  &::after {
+    content: "➤";
+    transform: rotate(90deg);
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: -50%;
+    padding: 0 1rem;
+    color: var(--decal);
+    transition: all 0.5s;
+  }
+}
+
+.hint {
+  position: relative;
+
+  &::after {
+    z-index: 2;
+    cursor: pointer;
+    content: "?";
+    position: absolute;
+    top: 30%;
+    right: 10px;
+    transform: -50%;
+    padding: 0.2rem 0.5rem;
+    color: var(--decal);
+    border: 1px solid var(--decal);
+    border-radius: 50%;
+    transition: all 0.2s;
+  }
+
+  &:hover::after {
+    top: 0;
+    left: 80%;
+    transform: translate(0 -50%);
+    display: block;
+    width: 100px;
+    background-color: var(--foreground);
+    color: var(--decal-dark);
+    content: attr(data-hint);
+    border-radius: 3px;
+    border: 1px dashed var(--decal-dark);
+    padding: 1rem;
+  }
 }
