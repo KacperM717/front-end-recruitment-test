@@ -1,0 +1,194 @@
+@mixin colors {
+  --font-color: black;
+  --background: #eee;
+  --foreground: white;
+  --decal: #ccc;
+  --decal-dark: #999;
+  --error: rgb(206, 37, 37);
+  --accept: rgb(107, 212, 0);
+  --accept-dark: rgb(86, 172, 0);
+}
+
+$medium: 800px;
+
+@mixin min-width($size) {
+  @media (min-width: $size) {
+    @content;
+  }
+}
+
+@mixin bottomShadow($color) {
+  box-shadow: 0 2px $color;
+}
+
+.checkout-wrapper {
+  @include colors();
+
+  * {
+    box-sizing: border-box;
+  }
+
+  color: var(--font-color);
+  background-color: var(--background);
+  width: 100%;
+  padding-top: 2rem;
+}
+
+.checkout {
+  @include min-width($medium) {
+    width: 80%;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+
+  form {
+    @include min-width($medium) {
+      width: 60%;
+    }
+
+    counter-reset: header;
+
+    h2 {
+      font-size: 1rem;
+      line-height: 1rem;
+      font-weight: bolder;
+      margin-bottom: 0.5rem;
+    }
+
+    h2::before {
+      counter-increment: header;
+      content: counter(header);
+      border-radius: 50%;
+      background-color: var(--font-color);
+      color: var(--foreground);
+      padding: 0.25ch 0.6ch;
+      margin: 0 1ch;
+      display: inline-block;
+    }
+
+    section {
+      @include min-width($medium) {
+        flex-flow: row wrap;
+      }
+      display: flex;
+      flex-flow: column wrap;
+      gap: 1.5rem;
+
+      padding: 1rem;
+      margin-left: 1rem;
+    }
+
+    .input-wrapper {
+      @include min-width($medium) {
+        // Gap by half
+        min-width: calc(50% - 0.75rem);
+        width: auto;
+        flex-grow: 1;
+      }
+
+      &.fullwidth {
+        width: 100%;
+      }
+
+      width: 100%;
+      background-color: var(--foreground);
+      border-radius: 3px;
+      padding: 5px;
+      font-weight: bold;
+
+      @include bottomShadow(var(--decal));
+
+      &:focus-within {
+        outline: 2px solid var(--decal-dark);
+      }
+
+      label {
+        font-size: 0.8rem;
+        display: block;
+      }
+
+      input {
+        width: 100%;
+        display: inline-block;
+        font-size: 1.4rem;
+        border: none;
+        outline: none;
+        color: var(--decal-dark);
+      }
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      @include bottomShadow(var(--accept-dark));
+      cursor: pointer;
+      outline: none;
+      border: none;
+      background-color: var(--accept);
+      color: var(--foreground);
+      border-radius: 3px;
+      padding: 1.5rem 0;
+      font-weight: bolder;
+    }
+  }
+
+  &-summary {
+    @include min-width($medium) {
+      width: 30%;
+      position: sticky;
+      top: 1rem;
+    }
+
+    padding: 1rem;
+    margin: 1rem;
+    outline: 5px solid var(--foreground);
+    border: 1px dashed var(--decal);
+    border-radius: 3px;
+
+    background-color: var(--foreground);
+
+    h2 {
+      font-size: 1rem;
+      line-height: 1rem;
+      font-weight: bolder;
+      margin: 0.5rem 0;
+    }
+
+    &-list {
+      border-bottom: 1px dashed var(--decal);
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      flex-flow: column nowrap;
+
+      div {
+        margin: 0.5rem 0;
+
+        span:nth-of-type(2) {
+          float: right;
+          margin-left: 2rem;
+        }
+      }
+    }
+
+    &-total div {
+      margin: 1rem 0;
+
+      span:nth-of-type(2) {
+        float: right;
+        font-size: 2rem;
+        font-weight: bolder;
+      }
+    }
+  }
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
