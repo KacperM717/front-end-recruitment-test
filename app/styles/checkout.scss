@@ -74,12 +74,13 @@ $medium: 768px;
     }
 
     section {
+      --gap: 1.5rem;
       @include min-width($medium) {
         flex-flow: row wrap;
       }
       display: flex;
       flex-flow: column wrap;
-      gap: 1.5rem;
+      gap: var(--gap, 1.5rem);
 
       padding: 1rem;
       margin-left: 1rem;
@@ -88,7 +89,7 @@ $medium: 768px;
     .input-wrapper {
       @include min-width($medium) {
         // Gap by half
-        min-width: calc(50% - 0.75rem);
+        min-width: calc(50% - calc(var(--gap, 1.5rem) / 2));
         width: auto;
         flex-grow: 1;
       }
@@ -171,24 +172,20 @@ $medium: 768px;
 
       div {
         margin: 0.5rem 0;
-
-        span:nth-of-type(2) {
-          float: right;
-          margin-left: 2rem;
-        }
+        display: flex;
+        justify-content: space-between;
       }
-    }
 
-    &-total div {
-      margin: 1rem 0;
-
-      span:nth-of-type(2) {
-        float: right;
-        font-size: 2rem;
-        font-weight: bolder;
+      &:last-of-type {
+        border-bottom: none;
       }
     }
   }
+}
+
+.big {
+  font-size: 2rem;
+  font-weight: bolder;
 }
 
 .uppercase {
