@@ -494,40 +494,52 @@
             <form>
               <h2 class="uppercase">Personal Information</h2>
               <section>
-                <div class="input-wrapper">
-                  <label for="checkout-form-name">First name</label>
+                <div class="input-wrapper required">
+                  <label for="checkout-form-name">First name</label
+                  ><span class="checkout-form-error"></span>
                   <input
                     autocomplete="name"
                     type="text"
                     name="checkout-form-name"
                     id="checkout-form-name"
+                    placeholder="John"
+                    required
                   />
                 </div>
-                <div class="input-wrapper">
-                  <label for="checkout-form-surname">Last name</label>
+                <div class="input-wrapper required">
+                  <label for="checkout-form-surname">Last name</label
+                  ><span class="checkout-form-error"></span>
                   <input
                     autocomplete="family-name"
                     type="text"
                     name="checkout-form-surname"
                     id="checkout-form-surname"
+                    placeholder="Doe"
+                    required
                   />
                 </div>
-                <div class="input-wrapper fullwidth">
-                  <label for="checkout-form-email">Email</label>
+                <div class="input-wrapper fullwidth required">
+                  <label for="checkout-form-email">Email<span></span></label
+                  ><span class="checkout-form-error"></span>
                   <input
                     autocomplete="email"
                     type="email"
                     name="checkout-form-email"
                     id="checkout-form-email"
+                    placeholder="johndoe@mail.com"
+                    required
                   />
                 </div>
-                <div class="input-wrapper caret">
-                  <label for="checkout-form-country">Country</label>
+                <div class="input-wrapper caret required">
+                  <label for="checkout-form-country">Country</label
+                  ><span class="checkout-form-error"></span>
                   <select
                     autocomplete="country"
                     name="checkout-form-country"
                     id="checkout-form-country"
+                    required
                   >
+                    <option value="" disabled selected hidden></option>
                     <option value="Poland">Poland</option>
                     <option value="Germany">Germany</option>
                     <option value="Czech-Republic">Czech Republic</option>
@@ -545,64 +557,84 @@
                   </datalist> -->
                 </div>
                 <div class="input-wrapper">
-                  <label for="checkout-form-postal_code">Postal Code</label>
+                  <label for="checkout-form-postal_code">Postal Code</label
+                  ><span class="checkout-form-error"></span>
                   <input
                     autocomplete="postal-code"
                     type="tel"
                     name="checkout-form-postal_code"
                     id="checkout-form-postal_code"
+                    placeholder="12-123"
                   />
                 </div>
-                <div class="input-wrapper fullwidth">
-                  <label for="checkout-form-phone">Phone Number</label>
+                <div class="input-wrapper fullwidth required">
+                  <label for="checkout-form-phone">Phone Number</label
+                  ><span class="checkout-form-error"></span>
                   <input
                     autocomplete="tel"
                     type="tel"
                     name="checkout-form-phone"
                     id="checkout-form-phone"
+                    required
+                    placeholder="+48 123 456 789"
+                    pattern="^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$"
                   />
                 </div>
               </section>
               <h2 class="uppercase">Payments Details</h2>
               <section>
-                <div class="input-wrapper fullwidth">
+                <div
+                  class="input-wrapper fullwidth icon absolute-end required"
+                  style="--icon-url: url(../images/credit-card.png)"
+                >
                   <label for="checkout-form-credit_card"
                     >Credit Card Number</label
-                  >
+                  ><span class="checkout-form-error"></span>
                   <input
                     type="tel"
                     name="checkout-form-credit_card"
                     id="checkout-form-credit_card"
+                    placeholder="0000-0000-0000-0000"
+                    pattern="([0-9]-?)+"
+                    x
+                    required
                   />
                 </div>
                 <div
-                  class="input-wrapper hint"
-                  data-hint="This is secure code delivered by verified provider"
+                  class="input-wrapper icon hint absolute-end required"
+                  style="--icon-url: url(../images/question.png)"
+                  data-hint="Lorem ipsum dolor sit amet. Lorem ipsum dolor sit."
                 >
-                  <label for="checkout-form-security_code">Security Code</label>
+                  <label for="checkout-form-security_code">Security Code</label
+                  ><span class="checkout-form-error"></span>
                   <input
                     type="password"
                     name="checkout-form-security_code"
                     id="checkout-form-security_code"
+                    placeholder="****"
+                    required
                   />
                 </div>
                 <div class="input-wrapper">
-                  <label for="checkout-form-expiration">Expiration Date</label>
+                  <label for="checkout-form-expiration">Expiration Date</label
+                  ><span class="checkout-form-error"></span>
                   <input
-                    placeholder="mm/yy"
-                    pattern="\d{1,2}/\d{1,2}"
-                    type="date"
+                    pattern="(0?[1-9])|(1[0-2])\/[0-9]{4}"
+                    placeholder="MM/YYYY"
+                    type="text"
                     name="checkout-form-expiration"
                     id="checkout-form-expiration"
                   />
                 </div>
               </section>
               <section>
-                <input
+                <button
                   class="uppercase"
                   type="submit"
-                  value="Complete Purchase"
-                />
+                  style="--icon-url: url('../images/shopping-cart.png')"
+                >
+                  Complete Purchase
+                </button>
               </section>
             </form>
             <aside class="checkout-summary">
@@ -641,6 +673,14 @@
           </div>
         </div>
         <footer class="mdl-mega-footer">
+          <div>
+            <div>
+              Icons from
+              <a href="https://www.flaticon.com/" title="Flaticon"
+                >www.flaticon.com</a
+              >
+            </div>
+          </div>
           <div class="mdl-mega-footer--middle-section">
             <div class="mdl-mega-footer--drop-down-section">
               <input
@@ -717,6 +757,7 @@
     <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
     <!-- build:js scripts/main.min.js -->
     <script src="scripts/main.js"></script>
+    <script src="scripts/checkout.js"></script>
     <!-- endbuild -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

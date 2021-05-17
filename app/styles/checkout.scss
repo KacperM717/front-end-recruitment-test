@@ -4,12 +4,13 @@
   --foreground: white;
   --decal: #ccc;
   --decal-dark: #999;
-  --error: rgb(206, 37, 37);
+  --error: rgb(226, 72, 72);
   --accept: rgb(107, 212, 0);
   --accept-dark: rgb(86, 172, 0);
 }
 
 $medium: 768px;
+$large: 960px;
 
 @mixin min-width($size) {
   @media (min-width: $size) {
@@ -40,8 +41,10 @@ $medium: 768px;
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: flex-start;
+    font-size: medium;
   }
 
+  font-size: large;
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -87,19 +90,17 @@ $medium: 768px;
     }
 
     .input-wrapper {
-      @include min-width($medium) {
+      @include min-width($large) {
         // Gap by half
-        min-width: calc(50% - calc(var(--gap, 1.5rem) / 2));
-        width: auto;
-        flex-grow: 1;
+        width: calc(50% - calc(var(--gap, 1.5rem) / 2));
       }
+      @include bottomShadow(var(--decal));
+
       width: 100%;
       background-color: var(--foreground);
       border-radius: 3px;
       padding: 5px;
       font-weight: bold;
-
-      @include bottomShadow(var(--decal));
 
       &:focus-within {
         outline: 2px solid var(--decal-dark);
@@ -108,7 +109,18 @@ $medium: 768px;
       label {
         cursor: pointer;
         font-size: 0.8rem;
-        display: block;
+        display: inline-block;
+      }
+
+      &.required label::after {
+        content: "*";
+        color: var(--error);
+        margin: 0 1rem;
+      }
+
+      span {
+        color: var(--error);
+        font-size: 0.8rem;
       }
 
       input,
@@ -125,11 +137,16 @@ $medium: 768px;
       &.fullwidth {
         width: 100%;
       }
+
+      &.error {
+        outline: 2px solid var(--error);
+      }
     }
 
-    input[type="submit"] {
-      width: 100%;
+    button[type="submit"] {
       @include bottomShadow(var(--accept-dark));
+      position: static;
+      width: 100%;
       cursor: pointer;
       outline: none;
       border: none;
@@ -138,6 +155,25 @@ $medium: 768px;
       border-radius: 3px;
       padding: 1.5rem 0;
       font-weight: bolder;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &::after {
+        content: "";
+        background-image: var(--icon-url);
+        background-size: contain;
+        display: block;
+        width: 2em;
+        height: 2em;
+        margin: 0 1em;
+        filter: invert(100%);
+      }
+
+      &:disabled {
+        background-color: var(--accept-dark);
+      }
     }
   }
 
@@ -215,35 +251,75 @@ $medium: 768px;
   }
 }
 
+.icon {
+  position: relative;
+  &::after {
+    content: "";
+    background-image: var(--icon-url);
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: block;
+    width: 2em;
+    height: 2em;
+
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 1rem;
+  }
+}
+
 .hint {
   position: relative;
 
   &::after {
-    z-index: 2;
-    cursor: pointer;
-    content: "?";
-    position: absolute;
-    top: 30%;
-    right: 10px;
-    transform: -50%;
-    padding: 0.2rem 0.5rem;
-    color: var(--decal);
-    border: 1px solid var(--decal);
-    border-radius: 50%;
-    transition: all 0.2s;
+    transition: top 0.3s;
   }
 
-  &:hover::after {
-    top: 0;
-    left: 80%;
-    transform: translate(0 -50%);
+  &:hover::after,
+  &:focus-within::after {
+    position: absolute;
+    top: 10%;
+    right: 0;
     display: block;
-    width: 100px;
+    width: 10rem;
+    height: fit-content;
     background-color: var(--foreground);
+    background-image: none;
     color: var(--decal-dark);
     content: attr(data-hint);
     border-radius: 3px;
     border: 1px dashed var(--decal-dark);
     padding: 1rem;
+  }
+}
+
+.anim-1::after {
+  animation: whirly 1s 1;
+}
+
+.rotation-inf::after {
+  animation: rotation 0.8s infinite;
+}
+
+@keyframes whirly {
+  from {
+    transform: scale(0) rotate(-360deg);
+  }
+  75% {
+    transform: scale(1.5);
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
